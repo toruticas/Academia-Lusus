@@ -21,5 +21,8 @@ Requesitos do sistemas : RVM (Ruby Virtual Machine), Ruby, Rails, MySQL, web bro
 
 ==Conclusão
 Ao longo do desenvolvimento do projeto percebemos que um MER bem feito e bem documentado facilita toda a implementação do Modelo Relacional e evita necessidade de muitas manutenções durante as fases do projeto, por isso achamos que é a parte mais difícil. 
+
+
 O projeto do curso foi muito bom para a fixação do que foi aprendido durante as aulas, pois engloba um projeto inteiro de BD do seu início ao fim, passando por todas as etapas necessárias.
+
 Como sugestão para as próximas avaliações, achamos que guiar os alunos para a utilização de ferramentas para a criação tanto do MER quanto do Modelo Relacional ajudaria os mesmos, mostrando para eles algumas das ferramentas existentes.
