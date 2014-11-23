@@ -1,28 +1,94 @@
-== README
+=Universidade de São Paulo - USP
+=Instituto de Ciências Matemáticas e de Computação - ICMC
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+=Academia Lusus
+=Projeto Rede Social - Parte 3
+=SCC0540 - Base de Dados
+=Profª Elaine Parros M. de Sousa
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+===Rafael Mariano de Castro Silva - 7564023
+===Eduardo Cardoso de Oliveira Junior - 7152250
+===Flavio Bartsch Nagle - 6447510
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+==Implementação
+
+SGBD utilizado : Optamos por utilizar o SGBD MySQL, devido a maior familiaridade por parte dos integrantes e sua maior facilidade quanto a integração com diversas linguagens.
+
+Linguagem de programação utilizado : A linguagem escolhida para a implementação do projeto foi a Ruby, em cima do framework rails, devido a facilidade de integração do banco e também a capacidade de transformar o relacional em um objeto, uso da active record.
+
+Requesitos do sistemas : RVM (Ruby Virtual Machine), Ruby, Rails, MySQL, web browser e um computador que atenda os respectivos requisitos mínimos.
+
+==Exemplo de códigos:
+
+===Criação das tabelas: 
+
+	--Criação da tabela usuarios (uma das tabelas primordiais)
+	CREATE TABLE usuario(                
+	    cpf INT NOT NULL
+	  , rg VARCHAR(32) NOT NULL
+	  , nome VARCHAR(64) NOT NULL
+	  , categoria CHAR(7) NOT NULL
+	  , CONSTRAINT pk_usuario PRIMARY KEY(cpf)
+	  , CONSTRAINT uk_usuario UNIQUE(rg)
+	  , CONSTRAINT ck_usuario CHECK (upper(categoria) IN ('ADMIN', 'JUIZ', 'EMPRESA', 'ALUNO'))
+	);
+	--Criação da tabela evento (uma das tabelas primordiais)
+	CREATE TABLE evento(
+	    id INT NOT NULL AUTO_INCREMENT
+	  , nome VARCHAR(64) NOT NULL
+	  , presidente INT
+	  , diretor_evento INT
+	  , data_ini DATE NOT NULL
+	  , data_fim DATE NOT NULL
+	  , local VARCHAR(64) NOT NULL
+	  , descricao TEXT
+	  , CONSTRAINT pk_evento PRIMARY KEY(id)
+	  , CONSTRAINT fk_evento_presidente FOREIGN KEY(presidente) REFERENCES presidente(cpf) ON DELETE SET NULL ON UPDATE SET NULL
+	  , CONSTRAINT fk_evento_diretor_evento FOREIGN KEY(diretor_evento) REFERENCES diretor_evento(cpf) ON DELETE SET NULL ON UPDATE CASCADE
+	  , CONSTRAINT uk_evento UNIQUE(nome, presidente, diretor_evento)
+	);
+
+===Query:
+	-- 1) Selecionar o nome, o ra e a faculdade de todos os atletas da modalidade xadrez que --participaram do evento TUSCA de 2014.
+	-- Essa query poderia gerar inconsistência se fosse escrita de forma errada, problema que --abordamos desde a primeira parte do projeto.
+
+	SELECT US.nome, AL.ra, AL.faculdade FROM usuario US
+	       INNER JOIN aluno AL ON US.cpf=AL.cpf
+	       INNER JOIN atleta AT ON AL.cpf = AT.cpf
+	       INNER JOIN participa_modalidade PM ON PM.atleta = AT.cpf
+	       INNER JOIN modalidade MO ON MO.nome = PM.modalidade
+	       INNER JOIN credencia CR ON CR.atleta = PM.atleta
+	       INNER JOIN participacao PA ON PA.id = CR.participacao
+	       INNER JOIN evento EV ON EV.id = PA.evento
+	       WHERE upper(MO.nome)='XADREZ' AND upper(EV.nome)='TUSCA 2014';
+
+	-- 2) Seleciona a quantidade de mensagens e de tópicos em cada grupo apresentado
+	SELECT G.nome, count(DISTINCT M.usuario, M.grupo, M.datetime) AS mensagens,
+	               count(DISTINCT T.id) AS topicos FROM grupo G
+	               LEFT JOIN msg_grupo M ON M.grupo = G.id
+	               LEFT JOIN topico_grupo T ON T.grupo = G.id
+	               GROUP BY G.id
+
+===Aplicação:
+	class RelatoriosController < ApplicationController
+	  def eventos
+	    @eventos = ActiveRecord::Base.connection.execute("SELECT nome, data_ini, data_fim, local, descricao FROM evento;")
+	  end
+
+	  def grupos
+	    @grupos = ActiveRecord::Base.connection.execute("SELECT G.nome, count(DISTINCT M.usuario, M.grupo, M.datetime) AS mensagens,
+	                                                                     count(DISTINCT T.id) AS topicos FROM grupo G
+	                                                                     LEFT JOIN msg_grupo M ON M.grupo = G.id
+	                                                                     LEFT JOIN topico_grupo T ON T.grupo = G.id
+	                                                                     GROUP BY G.id").to_a
+	  end
+
+	end
+
+
+==Conclusão
+
+    Ao longo do desenvolvimento do projeto percebemos que um MER bem feito e bem documentado facilita toda a implementação do Modelo Relacional e evita necessidade de muitas manutenções durante as fases do projeto, por isso achamos que é a parte mais difícil. 
+O projeto do curso foi muito bom para a fixação do que foi aprendido durante as aulas, pois engloba um projeto inteiro de BD do seu início ao fim, passando por todas as etapas necessárias.
+Como sugestão para as próximas avaliações, achamos que guiar os alunos para a utilização de ferramentas para a criação tanto do MER quanto do Modelo Relacional ajudaria os mesmos, mostrando para eles algumas das ferramentas existentes.
