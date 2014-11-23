@@ -1,14 +1,14 @@
-=Universidade de São Paulo - USP
-=Instituto de Ciências Matemáticas e de Computação - ICMC
+==Universidade de São Paulo - USP
+===Instituto de Ciências Matemáticas e de Computação - ICMC
 
-=Academia Lusus
-=Projeto Rede Social - Parte 3
-=SCC0540 - Base de Dados
-=Profª Elaine Parros M. de Sousa
+===Academia Lusus
+===Projeto Rede Social - Parte 3
+===SCC0540 - Base de Dados
+===Profª Elaine Parros M. de Sousa
 
-===Rafael Mariano de Castro Silva - 7564023
-===Eduardo Cardoso de Oliveira Junior - 7152250
-===Flavio Bartsch Nagle - 6447510
+====Rafael Mariano de Castro Silva - 7564023
+====Eduardo Cardoso de Oliveira Junior - 7152250
+====Flavio Bartsch Nagle - 6447510
 
 
 ==Implementação
@@ -88,7 +88,6 @@ Requesitos do sistemas : RVM (Ruby Virtual Machine), Ruby, Rails, MySQL, web bro
 
 
 ==Conclusão
-
-    Ao longo do desenvolvimento do projeto percebemos que um MER bem feito e bem documentado facilita toda a implementação do Modelo Relacional e evita necessidade de muitas manutenções durante as fases do projeto, por isso achamos que é a parte mais difícil. 
+Ao longo do desenvolvimento do projeto percebemos que um MER bem feito e bem documentado facilita toda a implementação do Modelo Relacional e evita necessidade de muitas manutenções durante as fases do projeto, por isso achamos que é a parte mais difícil. 
 O projeto do curso foi muito bom para a fixação do que foi aprendido durante as aulas, pois engloba um projeto inteiro de BD do seu início ao fim, passando por todas as etapas necessárias.
 Como sugestão para as próximas avaliações, achamos que guiar os alunos para a utilização de ferramentas para a criação tanto do MER quanto do Modelo Relacional ajudaria os mesmos, mostrando para eles algumas das ferramentas existentes.
