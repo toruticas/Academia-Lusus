@@ -21,6 +21,58 @@ Requesitos do sistemas : RVM (Ruby Virtual Machine), Ruby, Rails, MySQL, web bro
 
 ==Exemplo de Códigos
 
+===Criação de Tabelas
+
+  --Criação da tabela usuarios (uma das tabelas primordiais)
+  CREATE TABLE usuario(                
+      cpf INT NOT NULL
+    , rg VARCHAR(32) NOT NULL
+    , nome VARCHAR(64) NOT NULL
+    , categoria CHAR(7) NOT NULL
+    , CONSTRAINT pk_usuario PRIMARY KEY(cpf)
+    , CONSTRAINT uk_usuario UNIQUE(rg)
+    , CONSTRAINT ck_usuario CHECK (upper(categoria) IN ('ADMIN', 'JUIZ', 'EMPRESA', 'ALUNO'))
+  );
+  --Criação da tabela evento (uma das tabelas primordiais)
+  CREATE TABLE evento(
+      id INT NOT NULL AUTO_INCREMENT
+    , nome VARCHAR(64) NOT NULL
+    , presidente INT
+    , diretor_evento INT
+    , data_ini DATE NOT NULL
+    , data_fim DATE NOT NULL
+    , local VARCHAR(64) NOT NULL
+    , descricao TEXT
+    , CONSTRAINT pk_evento PRIMARY KEY(id)
+    , CONSTRAINT fk_evento_presidente FOREIGN KEY(presidente) REFERENCES presidente(cpf) ON DELETE SET NULL ON UPDATE SET NULL
+    , CONSTRAINT fk_evento_diretor_evento FOREIGN KEY(diretor_evento) REFERENCES diretor_evento(cpf) ON DELETE SET NULL ON UPDATE CASCADE
+    , CONSTRAINT uk_evento UNIQUE(nome, presidente, diretor_evento)
+  );
+
+
+====Consulta SQL
+
+  -- 1) Selecionar o nome, o ra e a faculdade de todos os atletas da modalidade xadrez que --participaram do evento TUSCA de 2014.
+  -- Essa query poderia gerar inconsistência se fosse escrita de forma errada, problema que --abordamos desde a primeira parte do projeto.
+
+  SELECT US.nome, AL.ra, AL.faculdade FROM usuario US
+         INNER JOIN aluno AL ON US.cpf=AL.cpf
+         INNER JOIN atleta AT ON AL.cpf = AT.cpf
+         INNER JOIN participa_modalidade PM ON PM.atleta = AT.cpf
+         INNER JOIN modalidade MO ON MO.nome = PM.modalidade
+         INNER JOIN credencia CR ON CR.atleta = PM.atleta
+         INNER JOIN participacao PA ON PA.id = CR.participacao
+         INNER JOIN evento EV ON EV.id = PA.evento
+         WHERE upper(MO.nome)='XADREZ' AND upper(EV.nome)='TUSCA 2014';
+
+  -- 2) Seleciona a quantidade de mensagens e de tópicos em cada grupo apresentado
+  SELECT G.nome, count(DISTINCT M.usuario, M.grupo, M.datetime) AS mensagens,
+                 count(DISTINCT T.id) AS topicos FROM grupo G
+                 LEFT JOIN msg_grupo M ON M.grupo = G.id
+                 LEFT JOIN topico_grupo T ON T.grupo = G.id
+                 GROUP BY G.id
+
+====Exemplos de códigos na aplicação
 
   class RelatoriosController < ApplicationController
     def eventos
