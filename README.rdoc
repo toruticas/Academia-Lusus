@@ -1,14 +1,14 @@
-==Universidade de São Paulo - USP
-===Instituto de Ciências Matemáticas e de Computação - ICMC
-
-===Academia Lusus
+=Academia Lusus
 ===Projeto Rede Social - Parte 3
 ===SCC0540 - Base de Dados
-===Profª Elaine Parros M. de Sousa
 
-====Rafael Mariano de Castro Silva - 7564023
-====Eduardo Cardoso de Oliveira Junior - 7152250
-====Flavio Bartsch Nagle - 6447510
+====Universidade de São Paulo - USP
+====Instituto de Ciências Matemáticas e de Computação - ICMC
+====Profª Elaine Parros M. de Sousa
+
+Rafael Mariano de Castro Silva - 7564023
+Eduardo Cardoso de Oliveira Junior - 7152250
+Flavio Bartsch Nagle - 6447510
 
 
 ==Implementação
