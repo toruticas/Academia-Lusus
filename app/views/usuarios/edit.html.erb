@@ -1,0 +1,21 @@
+<section style="padding:0 20% 0 20%">
+  <h1>Editar Usuário</h1>
+
+	<%= form_tag("/usuarios/"+@user[0].to_s, :method => :put) do %>
+    <p>
+      <%= label_tag(:cpf) %><br>
+      <%= text_field_tag(:cpf, @user[0].to_s ) %>
+    </p>
+    <p>
+      <%= label_tag(:nome) %><br>
+      <%= text_field_tag(:nome, @user[1].to_s) %>
+    </p>
+    <p>
+      <%= label_tag(:rg) %><br>
+      <%= text_field_tag(:rg, @user[2].to_s) %>
+    </p>
+    <p>
+      <%= submit_tag("Save Changes") %>
+    </p>
+  <% end %>
+</section>

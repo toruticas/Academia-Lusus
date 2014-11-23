@@ -1,0 +1,21 @@
+<section style="padding: 0 20% 0 20%;">
+	<h1>Listagem dos Eventos</h1>
+	<table class="table">
+		<tr>
+			<td>Nome</td>
+			<td>Data de Início</td>
+			<td>Data de Fim</td>
+			<td>Local</td>
+			<td>Descrição</td>
+		</tr>
+	<% @eventos.each do |evento| %>
+		<tr>
+			<td><%= evento[0] %></td>
+			<td><%= evento[1] %></td>
+			<td><%= evento[2] %></td>
+			<td><%= evento[3] %></td>
+			<td><%= evento[4] %></td>
+		</tr>
+	<% end %>
+	</table>
+</section>

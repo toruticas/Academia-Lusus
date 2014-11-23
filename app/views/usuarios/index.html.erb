@@ -1,0 +1,21 @@
+<section style="padding: 0 20% 0 20%;">
+	<h1>Listagem dos Usuários do Sistema</h1>
+	<table class="table">
+		<tr>
+			<td></td>
+			<td>Nome</td>
+			<td>RG</td>
+			<td>CPF</td>
+			<td>Categoria</td>
+		</tr>
+	<% @users.each do |user|%>
+		<tr>
+			<td><a href="/usuarios/<%= user[2] %>/edit"><span class="glyphicon glyphicon-edit"></span></a></td>
+			<td><%= user[0] %></td>
+			<td><%= user[1] %></td>
+			<td><%= user[2] %></td>
+			<td><%= user[3].downcase %></td>
+		</tr>
+	<% end %>
+	</table>
+</section>

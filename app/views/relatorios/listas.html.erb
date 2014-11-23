@@ -1,0 +1,25 @@
+<section style="padding: 0 20% 0 20%;">
+	<h1>Atletas em uma certa Modalidade do Evento</h1>
+	<p>Nesta seção você pode procurar os atletas que participam de uma certa em um determinado evento. Nessa query abordamos o problema de inconsistência apresentado desde a primeira parte do projeot</p>
+	<p>Para buscar definir a modalidade e evento bata inserir na URL:
+		<br>http://lusus.toruticas.com/relatorios/listas?modalidade=MODALIDADE&evento=EVENTO
+	</p>
+
+	<h2> Atletas do <%= @modalidade%> no <%= @evento %></h2>
+	<table class="table">
+		<tr>
+			<td>NOME</td>
+			<td>RG</td>
+			<td>CPF</td>
+			<td>RA</td>
+			<td>Faculdade</td>
+		</tr>
+	<% @users.each do |user| %>
+		<tr>
+		<% user.each do |value| %>
+			<td><%= value %></td>
+		<% end %>
+		</tr>
+	<% end %>
+	</table>
+</section>

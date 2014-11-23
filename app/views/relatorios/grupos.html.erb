@@ -1,0 +1,16 @@
+<section style="padding: 0 20% 0 20%;">
+	<table class="table">
+		<tr>
+			<td>Nome do Grupo</td>
+			<td>Quantidade de Tópicos</td>
+			<td>Quantidade de Mensagens</td>
+		</tr>
+	<% @grupos.each do |grupo| %>
+		<tr>
+			<td><%= grupo[0] %></td>
+			<td><%= grupo[2] %></td>
+			<td><%= grupo[1] %></td>
+		</tr>
+	<% end %>
+	</table>
+</section>

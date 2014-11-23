@@ -1,0 +1,24 @@
+<section style="padding:0 20% 0 20%">
+	<h1>Novo Usuário</h1>
+	<%= form_tag("/usuarios", :method => :post) do %>
+    <p>
+      <%= label_tag(:cpf) %><br>
+      <%= text_field_tag(:cpf) %>
+    </p>
+    <p>
+      <%= label_tag(:nome) %><br>
+      <%= text_field_tag(:nome) %>
+    </p>
+    <p>
+      <%= label_tag(:rg) %><br>
+      <%= text_field_tag(:rg) %>
+    </p>
+    <p>
+      <%= label_tag(:categoria) %>
+      <%= select_tag(:categoria, options_for_select([['admin', 'admin'], ['juiz', 'juiz'],['aluno', 'aluno'], ['empresa','empresa']])) %>
+    </p>
+    <p>
+      <%= submit_tag("Save Changes") %>
+    </p>
+	<% end %>
+</section>
