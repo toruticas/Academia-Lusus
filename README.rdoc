@@ -21,25 +21,20 @@ Requesitos do sistemas : RVM (Ruby Virtual Machine), Ruby, Rails, MySQL, web bro
 
 ==Exemplo de Códigos
 
-```ruby
-require 'redcarpet'
-markdown = Redcarpet.new("Hello World!")
-puts markdown.to_html
-```
 
-class RelatoriosController < ApplicationController
-  def eventos
-    @eventos = ActiveRecord::Base.connection.execute("SELECT nome, data_ini, data_fim, local, descricao FROM evento;")
-  end
+  class RelatoriosController < ApplicationController
+    def eventos
+      @eventos = ActiveRecord::Base.connection.execute("SELECT nome, data_ini, data_fim, local, descricao FROM evento;")
+    end
 
-  def grupos
-    @grupos = ActiveRecord::Base.connection.execute("SELECT G.nome, count(DISTINCT M.usuario, M.grupo, M.datetime) AS mensagens,
-      count(DISTINCT T.id) AS topicos FROM grupo G
-      LEFT JOIN msg_grupo M ON M.grupo = G.id
-      LEFT JOIN topico_grupo T ON T.grupo = G.id
-      GROUP BY G.id").to_a
+    def grupos
+      @grupos = ActiveRecord::Base.connection.execute("SELECT G.nome, count(DISTINCT M.usuario, M.grupo, M.datetime) AS mensagens,
+        count(DISTINCT T.id) AS topicos FROM grupo G
+        LEFT JOIN msg_grupo M ON M.grupo = G.id
+        LEFT JOIN topico_grupo T ON T.grupo = G.id
+        GROUP BY G.id").to_a
+    end
   end
-end
 
 ==Conclusão
 Ao longo do desenvolvimento do projeto percebemos que um MER bem feito e bem documentado facilita toda a implementação do Modelo Relacional e evita necessidade de muitas manutenções durante as fases do projeto, por isso achamos que é a parte mais difícil. 
