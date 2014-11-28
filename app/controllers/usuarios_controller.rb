@@ -28,4 +28,9 @@ class UsuariosController < ApplicationController
     @user = ActiveRecord::Base.connection.execute("UPDATE usuario SET cpf=#{params[:cpf]}, nome='#{params[:nome]}', rg='#{params[:rg]}' where cpf=#{params[:id]};")
     redirect_to "/usuarios/#{params[:cpf]}/"+'edit'
   end
+
+  def destroy
+    @user = ActiveRecord::Base.connection.execute("DELETE FROM usuario WHERE cpf=#{params[:id]};")
+    redirect_to root_path
+  end
 end

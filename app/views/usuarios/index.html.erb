@@ -10,7 +10,10 @@
 		</tr>
 	<% @users.each do |user|%>
 		<tr>
-			<td><a href="/usuarios/<%= user[2] %>/edit"><span class="glyphicon glyphicon-edit"></span></a></td>
+			<td>
+				<a href="/usuarios/<%= user[2] %>/edit"><span class="glyphicon glyphicon-edit"></span></a>
+				<%= link_to "<span class=\"glyphicon glyphicon-trash\"></span>".html_safe, "/usuarios/#{user[2]}", method: :delete, data: { confirm: 'Are you sure?' } %>
+			</td>
 			<td><%= user[0] %></td>
 			<td><%= user[1] %></td>
 			<td><%= user[2] %></td>
